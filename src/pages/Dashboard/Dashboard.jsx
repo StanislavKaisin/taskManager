@@ -109,10 +109,4 @@ const mapDispatchToProps = dispatch => ({
   getUserTasks: () => dispatch(getUserTasks())
 });
 
-export default compose(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  ),
-  windowSize
-)(Dashboard);
+export default compose(connect(mapStateToProps, mapDispatchToProps), windowSize)(Dashboard);

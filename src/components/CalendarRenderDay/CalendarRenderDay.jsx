@@ -9,7 +9,6 @@ const CalendarRenderDay = ({ day, classNames, onPickDate, calendar }) => {
   const addTask = day => {
     if (calendar) {
       const calendarDay = calendar.find(el => el.date === day.format('DD-MM-YYYY'));
-
       if (!!calendarDay) {
         return (
           <div className="Calendar-tasksWrapper">
@@ -26,10 +25,7 @@ const CalendarRenderDay = ({ day, classNames, onPickDate, calendar }) => {
     return null;
   };
   return (
-    <div
-      key={day.format()}
-      className={cx('Calendar-grid-item', day.isSame(moment(), 'day') && 'Calendar-grid-item--current', classNames)}
-    >
+    <div className={cx('Calendar-grid-item', day.isSame(moment(), 'day') && 'Calendar-grid-item--current', classNames)}>
       {day.format('D')}
       {addTask(day)}
     </div>

@@ -5,12 +5,18 @@ import InfiniteCalendar, {
   withMultipleDates
 } from 'react-infinite-calendar';
 import 'react-infinite-calendar/styles.css';
-// import Icon from '../Icon/Icon';
-// import { format } from 'date-fns';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { closePickerModal, closeModal } from '../../redux/actions/modalAction.js';
 import styles from './datePicker.module.css';
+import { getLastWeekDay } from '../../utils/utils';
+
+const dateToyyyyMMddFormatString = pickedDate => {
+  const mmFormatMonth =
+    ('' + (pickedDate.getMonth() + 1)).length < 2 ? '0' + (pickedDate.getMonth() + 1) : pickedDate.getMonth();
+  const dateString = '' + pickedDate.getFullYear() + '-' + mmFormatMonth + '-' + pickedDate.getDate();
+  return dateString;
+};
 
 class DatePicker extends Component {
   constructor(props) {
@@ -21,12 +27,10 @@ class DatePicker extends Component {
   }
 
   handlerOnSelect = pickedDate => {
-    const dateString = moment(pickedDate).format('yyyy-MM-dd');
-    const selectedString = this.state.selected.map(date => moment(date).format('yyyy-MM-dd'));
-
+    const dateString = dateToyyyyMMddFormatString(pickedDate);
+    const selectedString = this.state.selected.map(date => dateToyyyyMMddFormatString(date));
     if (selectedString.includes(dateString)) {
       const filtered = selectedString.filter(el => el !== dateString);
-
       const filteredOnDateFormat = filtered.map(date => new Date(date));
       return this.setState({ selected: filteredOnDateFormat });
     }
@@ -49,8 +53,7 @@ class DatePicker extends Component {
 
   render() {
     const { selected } = this.state;
-    const today = new Date();
-    const lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7);
+    const lastWeek = getLastWeekDay();
     const MultipleDatesCalendar = withMultipleDates(Calendar);
 
     return (

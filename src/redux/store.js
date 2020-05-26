@@ -6,6 +6,8 @@ import axios from 'axios';
 import axiosMiddleware from 'redux-axios-middleware';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
+import displayingDaysInCalendar from '../redux/middlewares/displayingDaysInCalendar.js';
+
 //=========== axios instance ===============================
 
 const client = axios.create({
@@ -26,7 +28,7 @@ client.interceptors.request.use(function(config) {
 
 //============================================================
 
-const middleWares = [thunk, axiosMiddleware(client)];
+const middleWares = [thunk, axiosMiddleware(client), displayingDaysInCalendar];
 const enhancer = composeWithDevTools(applyMiddleware(...middleWares));
 
 const configureStore = () => {

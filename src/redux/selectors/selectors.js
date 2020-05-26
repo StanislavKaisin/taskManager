@@ -36,3 +36,5 @@ export const getDeleteModal = state => state.modal.modalDelete;
 export const getNickname = state => state.session.nickname;
 
 export const getTaskId = state => state.id;
+
+export const calendarDates = state => state.userTasks.calendar;

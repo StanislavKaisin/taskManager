@@ -7,15 +7,12 @@ export const datesFromTasks = tasks => {
   result.isDisabled = [];
   if (Array.isArray(tasks)) {
     tasks.map(task => {
-      if (Array.isArray(task.dates)) {
-        task.dates.map(date => {
-          if (date.isComplete) {
-            result.isDisabled.push(new Date(date.date).toLocaleDateString());
-          } else {
-            result.isCompleted.push(new Date(date.date).toLocaleDateString());
-          }
-        });
-      }
+      if (!Array.isArray(task.dates)) return null;
+      task.dates.map(date => {
+        date.isComplete
+          ? result.isDisabled.push(new Date(date.date).toLocaleDateString())
+          : result.isCompleted.push(new Date(date.date).toLocaleDateString());
+      });
     });
   }
   return result;
@@ -92,4 +89,27 @@ export const convertDateFromRFC2822 = dateRFC2822 => {
     date = dateStr.split(' ');
 
   return [date[2], mnths[date[1]], date[3]].join('-');
+};
+
+
+export const getLastMonthDay = params => {
+  let today = new Date();
+  const todayYear = today.getFullYear();
+  const todayMonth = today.getMonth();
+  const todayDate = today.getDate();
+  today = new Date(todayYear, todayMonth, todayDate);
+  let lastMonthDay = new Date();
+  lastMonthDay.setTime(today.getTime() - 4 * 7 * 24 * 60 * 60 * 1000);
+  return lastMonthDay;
+};
+
+export const getLastWeekDay = params => {
+  let today = new Date();
+  const todayYear = today.getFullYear();
+  const todayMonth = today.getMonth();
+  const todayDate = today.getDate();
+  today = new Date(todayYear, todayMonth, todayDate);
+  let lastWeekDay = new Date();
+  lastWeekDay.setTime(today.getTime() -  7 * 24 * 60 * 60 * 1000);
+  return lastWeekDay;
 };

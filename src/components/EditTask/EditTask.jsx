@@ -6,7 +6,6 @@ import Icon from '../Icon/Icon';
 import { getTasks } from '../../redux/selectors/selectors';
 import { editTask } from '../../redux/actions/tasksActions';
 import { warn } from '../../utils/notification';
-// import { convertDateFromRFC2822 } from '../../utils/utils';
 import { openModal, openDeleteModal } from '../../redux/actions/modalAction';
 import DatePicker from '../DatePicker/DatePicker';
 import { openPickerModal } from '../../redux/actions/modalAction.js';
